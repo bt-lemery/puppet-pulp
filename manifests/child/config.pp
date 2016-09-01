@@ -4,6 +4,7 @@ class pulp::child::config {
   file { '/etc/pulp/nodes.conf':
     ensure  => 'file',
     content => template('pulp/nodes.conf.erb'),
+    require => Class['::pulp'],
   }
 
 #  include ::apache
