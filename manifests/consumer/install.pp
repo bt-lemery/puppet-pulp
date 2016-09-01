@@ -14,7 +14,7 @@ class pulp::consumer::install {
     )
   }
   
-  package { ['pulp-consumer-client', 'pulp-agent', 'gofer']:
+  package { ['pulp-consumer-client', 'gofer']:
     ensure => $pulp::consumer::version,
   }
 
