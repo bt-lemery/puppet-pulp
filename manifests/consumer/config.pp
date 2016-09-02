@@ -1,6 +1,5 @@
 # Pulp Consumer Configuration
 class pulp::consumer::config {
-  if $pulp::consumer::manage_config_file {
     file { '/etc/pulp/consumer/consumer.conf':
       ensure  => 'file',
       content => template('pulp/consumer.conf.erb'),
