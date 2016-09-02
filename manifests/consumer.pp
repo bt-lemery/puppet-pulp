@@ -101,6 +101,7 @@
 # $package_profile_verbose::       Set logging level
 #                                  type:integer
 #
+# $manage_pulp_agent
 class pulp::consumer (
   $version                   = $pulp::consumer::params::version,
   $enable_puppet             = $pulp::consumer::params::enable_puppet,
@@ -139,6 +140,7 @@ class pulp::consumer (
   $profile_minutes           = $pulp::consumer::params::profile_minutes,
   $package_profile_enabled   = $pulp::consumer::params::package_profile_enabled,
   $package_profile_verbose   = $pulp::consumer::params::package_profile_verbose,
+  $manage_pulp_agent         = $pulp::consumer::params::manage_pulp_agnet,
 ) inherits pulp::consumer::params {
   validate_bool($enable_puppet)
   validate_bool($enable_nodes)
