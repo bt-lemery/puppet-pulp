@@ -301,6 +301,14 @@ class pulp (
   validate_array($disabled_authenticators)
   validate_hash($additional_wsgi_scripts)
 
+  @service { 'goferd':
+    ensure     => running,
+    enable     => true,
+    hasstatus  => true,
+    hasrestart => true,
+  }
+
+
   include ::mongodb::client
   include ::pulp::apache
   include ::pulp::database
