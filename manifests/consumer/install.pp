@@ -14,9 +14,9 @@ class pulp::consumer::install {
     )
   }
   
-  package { ['pulp-consumer-client', 'gofer']:
+  ensure_packages({ ['pulp-consumer-client', 'pulp-agent', 'gofer']:
     ensure => $pulp::consumer::version,
-  }
+  })
 
   if $pulp::consumer::enable_puppet {
     package { ['pulp-puppet-consumer-extensions', 'pulp-puppet-handlers']:
