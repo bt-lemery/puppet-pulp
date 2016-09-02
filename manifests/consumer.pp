@@ -102,6 +102,9 @@
 #                                  type:integer
 #
 # $manage_pulp_agent
+#
+#
+# $manage_config_file
 class pulp::consumer (
   $version                   = $pulp::consumer::params::version,
   $enable_puppet             = $pulp::consumer::params::enable_puppet,
@@ -140,7 +143,8 @@ class pulp::consumer (
   $profile_minutes           = $pulp::consumer::params::profile_minutes,
   $package_profile_enabled   = $pulp::consumer::params::package_profile_enabled,
   $package_profile_verbose   = $pulp::consumer::params::package_profile_verbose,
-  $manage_pulp_agent         = $pulp::consumer::params::manage_pulp_agnet,
+  $manage_pulp_agent         = $pulp::consumer::params::manage_pulp_agent,
+  $manage_config_file        = $pulp::consumer::params::manage_config_file,
 ) inherits pulp::consumer::params {
   validate_bool($enable_puppet)
   validate_bool($enable_nodes)
@@ -150,6 +154,9 @@ class pulp::consumer (
   validate_bool($reboot_permit)
   validate_bool($enable_color)
   validate_bool($wrap_to_terminal)
+
+  validate_bool($manage_pulp_agent)
+  validate_bool($manage_config_file)
 
   class { '::pulp::consumer::install': } ->
   class { '::pulp::consumer::config': } ~>

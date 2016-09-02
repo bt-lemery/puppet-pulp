@@ -48,4 +48,5 @@ class pulp::consumer::params {
   $package_profile_enabled = 1
   $package_profile_verbose = 1
   $manage_pulp_agent = true
+  $manage_config_file = true
 }

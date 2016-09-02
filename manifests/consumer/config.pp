@@ -1,12 +1,13 @@
 # Pulp Consumer Configuration
 class pulp::consumer::config {
-  file { '/etc/pulp/consumer/consumer.conf':
-    ensure  => 'file',
-    content => template('pulp/consumer.conf.erb'),
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-  }
+  if $pulp::consumer::manage_config_file {
+    file { '/etc/pulp/consumer/consumer.conf':
+      ensure  => 'file',
+      content => template('pulp/consumer.conf.erb'),
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+    }
 
   if $pulp::consumer::enable_rpm {
     file { '/etc/yum/pluginconf.d/pulp-profile-update.conf':
