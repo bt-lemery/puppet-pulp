@@ -1,11 +1,7 @@
 # Set up the pulp database
 class pulp::database {
   if $pulp::manage_db {
-    if (versioncmp($::mongodb_version, '2.6.5') >= 0) {
-      $mongodb_pidfilepath = '/var/run/mongodb/mongod.pid'
-    } else {
-      $mongodb_pidfilepath = '/var/run/mongodb/mongodb.pid'
-    }
+    $mongodb_pidfilepath = '/var/run/mongodb/mongod.pid'
 
     class { '::mongodb::server':
       pidfilepath => $mongodb_pidfilepath,
