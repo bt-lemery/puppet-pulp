@@ -4,7 +4,7 @@
 # The pulp server configuration
 #
 # host:
-#   The pulp server hostname
+#   The pulp server hostname.  If not specified, this value will default to socket.gethostname().
 # port:
 #   The port providing the RESTful API
 # rsa_pub:
@@ -24,11 +24,11 @@
 
 [server]
 host: <%= scope['pulp::consumer::host'] %>
-port: <%= scope['pulp::consumer::port'] %>
-api_prefix: <%= scope['pulp::consumer::api_prefix'] %>
-rsa_pub: <%= scope['pulp::consumer::rsa_server_pub'] %>
+# port: 443
+# api_prefix: /pulp/api
+# rsa_pub: /etc/pki/pulp/consumer/server/rsa_pub.key
 verify_ssl: <%= scope['pulp::consumer::verify_ssl'] %>
-ca_path: <%= scope['pulp::consumer::ca_path'] %>
+# ca_path = /etc/pki/tls/certs/ca-bundle.crt
 
 
 # Authentication
@@ -41,8 +41,8 @@ ca_path: <%= scope['pulp::consumer::ca_path'] %>
 #   The RSA public key used for authentication.
 
 [authentication]
-rsa_key: <%= scope['pulp::consumer::rsa_key'] %>
-rsa_pub: <%= scope['pulp::consumer::rsa_pub'] %>
+# rsa_key: /etc/pki/pulp/consumer/rsa.key
+# rsa_pub: /etc/pki/pulp/consumer/rsa_pub.key
 
 
 # Client settings.
@@ -50,7 +50,7 @@ rsa_pub: <%= scope['pulp::consumer::rsa_pub'] %>
 # role: The client role.
 
 [client]
-role: <%= scope['pulp::consumer::role'] %>
+# role: consumer
 
 
 # The location of resources on the consumer file system.
@@ -74,13 +74,13 @@ role: <%= scope['pulp::consumer::role'] %>
 #   certificate. This file is downloaded and stored here during registration.
 
 [filesystem]
-extensions_dir: <%= scope['pulp::consumer::extensions_dir'] %>
-repo_file: <%= scope['pulp::consumer::repo_file'] %>
-mirror_list_dir: <%= scope['pulp::consumer::mirror_list_dir'] %>
-gpg_keys_dir: <%= scope['pulp::consumer::gpg_keys_dir'] %>
-cert_dir: <%= scope['pulp::consumer::cert_dir'] %>
-id_cert_dir: <%= scope['pulp::consumer::id_cert_dir'] %>
-id_cert_filename: <%= scope['pulp::consumer::id_cert_filename'] %>
+# extensions_dir: /usr/lib/pulp/consumer/extensions
+# repo_file: /etc/yum.repos.d/pulp.repo
+# mirror_list_dir: /etc/yum.repos.d
+# gpg_keys_dir: /etc/pki/pulp-gpg-keys
+# cert_dir: /etc/pki/pulp/client/repo
+# id_cert_dir: /etc/pki/pulp/consumer/
+# id_cert_filename: consumer-cert.pem
 
 
 # Reboot settings:
@@ -91,20 +91,8 @@ id_cert_filename: <%= scope['pulp::consumer::id_cert_filename'] %>
 #   The reboot delay (minutes).
 
 [reboot]
-permit: <%= scope['pulp::consumer::reboot_permit'] %>
-delay: <%= scope['pulp::consumer::reboot_delay'] %>
-
-
-# Client logging.
-#
-# filename:
-#   The location of the consumer client log file.
-# call_log_filename:
-#   If present, the raw REST responses will be logged to the given file.
-
-[logging]
-filename: <%= scope['pulp::consumer::logging_filename'] %>
-call_log_filename: <%= scope['pulp::consumer::logging_call_log_filename'] %>
+# permit: False
+# delay: 3
 
 
 # Consumer client output.
@@ -121,10 +109,10 @@ call_log_filename: <%= scope['pulp::consumer::logging_call_log_filename'] %>
 #   The number of characters written before wrapping to the next line.
 
 [output]
-poll_frequency_in_seconds: <%= scope['pulp::consumer::poll_frequency_in_seconds'] %>
-enable_color: <%= scope['pulp::consumer::enable_color'] %>
-wrap_to_terminal: <%= scope['pulp::consumer::wrap_to_terminal'] %>
-wrap_width: <%= scope['pulp::consumer::wrap_width'] %>
+# poll_frequency_in_seconds: 1
+# enable_color: true
+# wrap_to_terminal: false
+# wrap_width: 80
 
 
 # Agent messaging.
@@ -150,16 +138,12 @@ wrap_width: <%= scope['pulp::consumer::wrap_width'] %>
 #   with. The id_cert_dir and id_cert_filename are used if this is not defined.
 
 [messaging]
-scheme: <%= scope['pulp::consumer::messaging_scheme'] %>
-host: <%= scope['pulp::consumer::messaging_host'] %>
-port: <%= scope['pulp::consumer::messaging_port'] %>
-transport: <%= scope['pulp::consumer::messaging_transport'] %>
-<% if scope['pulp::consumer::messaging_cacert'] -%>
-cacert: <%= scope['pulp::consumer::messaging_cacert'] %>
-<% end -%>
-<% if scope['pulp::consumer::messaging_clientcert'] -%>
-clientcert: <%= scope['pulp::consumer::messaging_clientcert'] %>
-<% end -%>
+# scheme: amqp
+# host:
+# port: 5672
+# transport: qpid
+# cacert:
+# clientcert:
 
 
 # Profile reporting.
@@ -169,4 +153,4 @@ clientcert: <%= scope['pulp::consumer::messaging_clientcert'] %>
 #   The interval in minutes for reporting the installed content profiles.
 
 [profile]
-minutes: <%= scope['pulp::consumer::profile_minutes'] %>
+# minutes: 240
